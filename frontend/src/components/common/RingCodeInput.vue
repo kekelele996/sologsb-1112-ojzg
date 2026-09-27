@@ -17,6 +17,7 @@ const emit = defineEmits<{
   (e: 'update:ringNo', value: string): void;
   (e: 'update:colorRing', value: string): void;
   (e: 'view-history', ringNo: string): void;
+  (e: 'review', ringNo: string): void;
 }>();
 
 const prefix = computed(() => {
@@ -73,9 +74,10 @@ function compose(nextPrefix: string, nextSerial: string) {
       show-icon
       :closable="false"
       :title="`环号 ${ringNo} 已存在（${existed.speciesCn} · ${existed.status} · 该环号共 ${historyCount} 条历史记录）`"
-      description="重复环号不允许再次登记初捕；如需记录重捕请改为「重捕」状态，或直接查看历史记录。"
+      description="重复环号不允许再次登记初捕；带环鸟重捕 / 回收请走「复核登记」：核对鸟种后新增本次事件，原档案不被覆盖。"
     >
       <template #default>
+        <el-button link type="primary" @click="emit('review', ringNo)">转复核登记</el-button>
         <el-button link type="primary" @click="emit('view-history', ringNo)">查看该环号历史记录</el-button>
       </template>
     </el-alert>

@@ -4,6 +4,9 @@ export type BirdAge = '幼' | '亚成' | '成';
 /** 环志状态 */
 export type RingStatus = '初捕' | '重捕' | '回收';
 
+/** 复核登记可登记的事件类型（初捕只能在首次建档时登记） */
+export type ReviewStatus = Extract<RingStatus, '重捕' | '回收'>;
+
 /** 环志记录 */
 export interface RingRecord {
   id: string;
